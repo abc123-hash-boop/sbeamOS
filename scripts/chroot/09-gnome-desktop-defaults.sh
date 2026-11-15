@@ -19,6 +19,9 @@ system-db:local
 EOF
 
 cat > /etc/dconf/db/local.d/00-sbeamos-desktop <<'EOF'
+[org/gnome/shell]
+enabled-extensions=@as []
+
 [org/gnome/desktop/input-sources]
 sources=[('xkb', 'us')]
 current=0
@@ -38,4 +41,4 @@ EOF
 log "Compiling the system dconf database..."
 dconf update
 
-log "Conservative GNOME defaults configured (extensions and custom input engines disabled)."
+log "Conservative GNOME defaults configured (GNOME Shell extensions disabled; US keyboard only)."
