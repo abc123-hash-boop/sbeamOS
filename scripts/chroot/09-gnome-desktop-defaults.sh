@@ -5,9 +5,12 @@ log() {
   printf '[INFO] %s\n' "$*"
 }
 
-log "Configuring system-wide GNOME desktop defaults..."
+log "Applying conservative GNOME defaults for the Live desktop..."
 
-# Give each user a writable dconf database followed by SbeamOS defaults.
+# Start with an unmodified GNOME Shell session. Ubuntu's Dock, DING and
+# AppIndicator extensions are intentionally disabled while stabilizing the
+# first boot; they can be enabled individually after the base session is
+# proven stable.
 install -d -m 0755 /etc/dconf/profile /etc/dconf/db/local.d
 
 cat > /etc/dconf/profile/user <<'EOF'
@@ -16,34 +19,15 @@ system-db:local
 EOF
 
 cat > /etc/dconf/db/local.d/00-sbeamos-desktop <<'EOF'
+[org/gnome/shell]
+enabled-extensions=[]
+
 [org/gnome/desktop/input-sources]
-sources=[('xkb', 'us'), ('ibus', 'libpinyin')]
+sources=[('xkb', 'us')]
 current=0
 
 [org/gnome/desktop/wm/preferences]
 button-layout=':minimize,maximize,close'
-
-[org/gnome/shell]
-enabled-extensions=['ding@rastersoft.com', 'ubuntu-dock@ubuntu.com', 'ubuntu-appindicators@ubuntu.com']
-
-[org/gnome/shell/extensions/dash-to-dock]
-dock-position='BOTTOM'
-dock-fixed=true
-intellihide=true
-intellihide-mode='MAXIMIZED_WINDOWS'
-autohide=true
-extend-height=false
-dash-max-icon-size=44
-show-trash=true
-show-mounts=true
-
-[org/gnome/shell/extensions/ding]
-icon-size='standard'
-show-home=true
-show-trash=true
-show-volumes=true
-show-network-volumes=false
-start-corner='top-left'
 
 [org/gnome/desktop/background]
 picture-uri='file:///usr/share/backgrounds/sbeamos/WP12-LM.png'
@@ -57,4 +41,4 @@ EOF
 log "Compiling the system dconf database..."
 dconf update
 
-log "GNOME desktop defaults configured."
+log "Conservative GNOME defaults configured (extensions and custom input engines disabled)."

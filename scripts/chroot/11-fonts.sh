@@ -28,20 +28,6 @@ install -m 0644 "${font_files[@]}" "$TARGET_DIR/"
 log "Refreshing fontconfig cache..."
 fc-cache --force "$TARGET_DIR"
 
-log "Configuring Sbeam as the default GNOME interface font..."
-install -d -m 0755 /etc/dconf/profile /etc/dconf/db/local.d
-if [[ ! -f /etc/dconf/profile/user ]]; then
-  cat > /etc/dconf/profile/user <<'PROFILE'
-user-db:user
-system-db:local
-PROFILE
-fi
-
-cat > /etc/dconf/db/local.d/01-sbeamos-font <<'DCONF'
-[org/gnome/desktop/interface]
-font-name='Sbeam 10'
-DCONF
-
-dconf update
-
-log "Sbeam font installation completed."
+# Keep the bundled font available for users, but retain GNOME's stock
+# Cantarell interface font until the first graphical session is stable.
+log "Sbeam font installed; GNOME will use its default interface font."
