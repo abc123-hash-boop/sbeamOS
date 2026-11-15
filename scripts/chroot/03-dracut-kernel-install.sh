@@ -13,6 +13,7 @@ apt-get install --yes --no-install-recommends \
   laptop-detect \
   os-prober \
   keyutils \
+  dmsetup \
   linux-image-generic
 
 log "Configuring Dracut for a portable, non-host-only initramfs..."
