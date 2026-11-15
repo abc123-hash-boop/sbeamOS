@@ -1,0 +1,17 @@
+# Generated Ubuntu root filesystem and downloaded package cache
+/rootfs/
+
+# Generated ISO images and temporary build output
+/build/
+*.iso
+*.img
+*.squashfs
+
+# Host/editor artifacts
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Third-party WIP12 wallpaper binaries (redistribution permission unverified)
+/scripts/chroot/wallpapers/*.png
