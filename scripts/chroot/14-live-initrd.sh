@@ -78,13 +78,24 @@ dracut "${dracut_args[@]}" "$live_initrd" "$kernel_version"
 }
 
 log "Inspecting the generated Live initrd..."
-lsinitrd -m "$live_initrd" | grep -Fxq "sbeamos-live-layers" || {
+# Capture lsinitrd output before searching it. With pipefail enabled,
+# grep -q can close the pipe early and make lsinitrd fail with SIGPIPE even
+# when the requested module is present.
+initrd_modules="$(lsinitrd -m "$live_initrd")"
+if ! grep -Fxq "sbeamos-live-layers" <<< "$initrd_modules"; then
   printf '[ERROR] The generated initrd is missing the SbeamOS Live module.\n' >&2
+  printf '%s\n' "$initrd_modules" >&2
   exit 1
-}
-lsinitrd "$live_initrd" | grep -E 'dmsquash-live|create-overlay' >/dev/null || {
+fi
+
+initrd_contents="$(lsinitrd "$live_initrd")"
+if ! grep -E 'dmsquash-live|create-overlay' <<< "$initrd_contents" >/dev/null; then
   printf '[ERROR] The generated initrd is missing upstream Live root components.\n' >&2
   exit 1
-}
+fi
+if ! grep -Fq '90-sbeamos-live-prepare.sh' <<< "$initrd_contents"; then
+  printf '[ERROR] The generated initrd is missing the SbeamOS Live preparation hook.\n' >&2
+  exit 1
+fi
 
 log "SbeamOS Live initrd created for kernel $kernel_version."
