@@ -19,9 +19,6 @@ system-db:local
 EOF
 
 cat > /etc/dconf/db/local.d/00-sbeamos-desktop <<'EOF'
-[org/gnome/shell]
-enabled-extensions=[]
-
 [org/gnome/desktop/input-sources]
 sources=[('xkb', 'us')]
 current=0
