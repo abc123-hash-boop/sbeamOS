@@ -7,10 +7,9 @@ log() {
 
 log "Applying conservative GNOME defaults for the Live desktop..."
 
-# Start with an unmodified GNOME Shell session. Ubuntu's Dock, DING and
-# AppIndicator extensions are intentionally disabled while stabilizing the
-# first boot; they can be enabled individually after the base session is
-# proven stable.
+# Keep the first-boot desktop familiar while limiting extensions to the two
+# needed for the desktop experience: a permanently visible bottom Dock and
+# desktop icons. AppIndicator remains disabled until separately needed.
 install -d -m 0755 /etc/dconf/profile /etc/dconf/db/local.d
 
 cat > /etc/dconf/profile/user <<'EOF'
@@ -20,7 +19,21 @@ EOF
 
 cat > /etc/dconf/db/local.d/00-sbeamos-desktop <<'EOF'
 [org/gnome/shell]
-enabled-extensions=@as []
+enabled-extensions=['ubuntu-dock@ubuntu.com', 'ding@rastersoft.com']
+
+[org/gnome/shell/extensions/dash-to-dock]
+dock-position='BOTTOM'
+dock-fixed=true
+autohide=false
+intellihide=false
+extend-height=false
+icon-size-fixed=true
+dash-max-icon-size=48
+
+[org/gnome/shell/extensions/ding]
+show-home=true
+show-trash=true
+show-volumes=true
 
 [org/gnome/desktop/input-sources]
 sources=[('xkb', 'us')]
@@ -41,4 +54,4 @@ EOF
 log "Compiling the system dconf database..."
 dconf update
 
-log "Conservative GNOME defaults configured (GNOME Shell extensions disabled; US keyboard only)."
+log "GNOME Dock and desktop icons enabled; US keyboard only."
