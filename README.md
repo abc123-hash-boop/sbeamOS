@@ -17,14 +17,28 @@ sudo ./build-iso.sh
 ```
 
 `download.sh` creates the Ubuntu RootFS with debootstrap. `chroot.sh` installs
-and configures the SbeamOS system, kernel, GNOME desktop, Google Chrome Stable
-and dedicated Dracut Live initramfs. `build-iso.sh` creates a SquashFS root
-image and invokes GRUB to produce a hybrid BIOS/UEFI ISO.
+and configures the SbeamOS system, kernel, GNOME desktop, Google Chrome Stable,
+everyday desktop applications and dedicated Dracut Live initramfs.
+`build-iso.sh` creates a SquashFS root image and invokes GRUB to produce a
+hybrid BIOS/UEFI ISO.
 
-The Chrome build module downloads Google's official amd64 DEB package during
-the chroot stage. It configures Chrome as the default browser and uses the
-Google APT repository for subsequent stable-channel updates. Chrome is
-proprietary software; it is not part of the Ubuntu archive.
+### Included desktop applications
+
+- **Web:** Google Chrome Stable (official Google DEB and APT repository).
+- **Office:** LibreOffice Writer, Calc and Impress.
+- **PDF:** Papers.
+- **Video and music:** Showtime and Rhythmbox.
+- **Files and screenshots:** File Roller and GNOME Screenshot.
+- **Scanning and credentials:** Document Scanner (Simple Scan) and Seahorse.
+- **Calendar:** GNOME Calendar.
+- **Downloads:** Transmission GTK.
+- **Existing GNOME utilities:** Calculator, Text Editor, Loupe, Disks and
+  System Monitor.
+
+The application modules use Ubuntu's Resolute APT archive wherever possible.
+Google Chrome is downloaded from Google's official Debian package endpoint.
+Optional creative, development and gaming software is intentionally not part
+of the base image.
 
 The ISO builder requires host packages:
 
