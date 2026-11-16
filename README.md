@@ -1,6 +1,8 @@
 # SbeamOS
 
-SbeamOS is an Ubuntu 26.04 (Resolute)-based Linux desktop distribution project.
+SbeamOS alpha-2 is an Ubuntu 26.04 (Resolute)-based Linux desktop distribution project.
+The SbeamOS release identifier is maintained in the root `VERSION` file; the
+next planned release is alpha-3.
 The current build targets amd64 PCs and uses GNOME, systemd, Dracut, SquashFS,
 OverlayFS and GRUB for its planned Live environment. Casper is not part of the
 Live boot design.

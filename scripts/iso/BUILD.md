@@ -29,7 +29,7 @@ RootFS has a kernel and `/boot/sbeamos-live-initrd.img`, creates
 Default output:
 
 ```text
-build/SbeamOS-26.04-amd64.iso
+build/SbeamOS-alpha-2-amd64.iso
 ```
 
 An alternate output path can be supplied as the first argument:

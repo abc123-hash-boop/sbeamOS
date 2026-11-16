@@ -5,7 +5,10 @@ set -Eeuo pipefail
 # This deliberately does not use KVM, so it also works without VT-x/AMD-V.
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-ISO_PATH="${1:-$SCRIPT_DIR/build/SbeamOS-26.04-amd64.iso}"
+VERSION_FILE="$SCRIPT_DIR/VERSION"
+[[ -s "$VERSION_FILE" ]] || { printf '[ERROR] SbeamOS VERSION file is missing: %s\n' "$VERSION_FILE" >&2; exit 1; }
+BUILD_VERSION="$(< "$VERSION_FILE")"
+ISO_PATH="${1:-$SCRIPT_DIR/build/SbeamOS-${BUILD_VERSION}-amd64.iso}"
 
 log() { printf '[INFO] %s\n' "$*"; }
 die() { printf '[ERROR] %s\n' "$*" >&2; exit 1; }

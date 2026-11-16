@@ -8,7 +8,11 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 ROOTFS="$SCRIPT_DIR/rootfs"
 ISO_CONFIG="$SCRIPT_DIR/scripts/iso/grub.cfg"
 BUILD_DIR="$SCRIPT_DIR/build"
-OUTPUT_ISO="${1:-$BUILD_DIR/SbeamOS-26.04-amd64.iso}"
+VERSION_FILE="$SCRIPT_DIR/VERSION"
+[[ -s "$VERSION_FILE" ]] || { printf '[ERROR] SbeamOS VERSION file is missing: %s\n' "$VERSION_FILE" >&2; exit 1; }
+BUILD_VERSION="$(< "$VERSION_FILE")"
+[[ "$BUILD_VERSION" =~ ^[a-zA-Z0-9][a-zA-Z0-9._-]*$ ]] || { printf '[ERROR] Invalid SbeamOS version: %s\n' "$BUILD_VERSION" >&2; exit 1; }
+OUTPUT_ISO="${1:-$BUILD_DIR/SbeamOS-${BUILD_VERSION}-amd64.iso}"
 
 log() { printf '[INFO] %s\n' "$*"; }
 die() { printf '[ERROR] %s\n' "$*" >&2; exit 1; }

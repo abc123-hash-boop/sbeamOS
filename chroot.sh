@@ -92,6 +92,7 @@ sudo mount --make-rslave "$ROOTFS/run"
 log "Copying chroot configuration scripts..."
 sudo mkdir -p "$ROOTFS$CHROOT_WORKDIR"
 sudo cp -a "$CHROOT_SCRIPTS/." "$ROOTFS$CHROOT_WORKDIR/"
+sudo install -m 0644 ./VERSION "$ROOTFS$CHROOT_WORKDIR/VERSION"
 
 log "Entering Ubuntu RootFS..."
 sudo chroot "$ROOTFS" /usr/bin/env DEBIAN_FRONTEND=noninteractive \

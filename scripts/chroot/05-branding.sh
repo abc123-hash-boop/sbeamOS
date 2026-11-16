@@ -5,7 +5,11 @@ set -Eeuo pipefail
 # Keep ID=ubuntu so Ubuntu-specific tools such as add-apt-repository
 # continue to recognize the base distribution.
 TARGET_BUSINESS_NAME="SbeamOS"
-TARGET_BUILD_VERSION="26.04"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+VERSION_FILE="$SCRIPT_DIR/VERSION"
+[[ -s "$VERSION_FILE" ]] || { printf "[ERROR] SbeamOS VERSION file is missing: %s\n" "$VERSION_FILE" >&2; exit 1; }
+TARGET_BUILD_VERSION="$(< "$VERSION_FILE")"
+[[ "$TARGET_BUILD_VERSION" =~ ^[a-zA-Z0-9][a-zA-Z0-9._-]*$ ]] || { printf "[ERROR] Invalid SbeamOS version: %s\n" "$TARGET_BUILD_VERSION" >&2; exit 1; }
 TARGET_UBUNTU_VERSION="resolute"
 TARGET_NAME="ubuntu"
 
@@ -26,7 +30,7 @@ cat > /etc/os-release <<EOF
 PRETTY_NAME="${TARGET_BUSINESS_NAME} ${TARGET_BUILD_VERSION}"
 NAME="${TARGET_BUSINESS_NAME}"
 VERSION_ID="${TARGET_BUILD_VERSION}"
-VERSION="${TARGET_BUILD_VERSION} (Resolute Raccoon)"
+VERSION="${TARGET_BUILD_VERSION}"
 VERSION_CODENAME=${TARGET_UBUNTU_VERSION}
 ID=${TARGET_NAME}
 ID_LIKE=ubuntu
