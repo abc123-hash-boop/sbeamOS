@@ -17,9 +17,14 @@ sudo ./build-iso.sh
 ```
 
 `download.sh` creates the Ubuntu RootFS with debootstrap. `chroot.sh` installs
-and configures the SbeamOS system, kernel, GNOME desktop and dedicated Dracut
-Live initramfs. `build-iso.sh` creates a SquashFS root image and invokes GRUB to
-produce a hybrid BIOS/UEFI ISO.
+and configures the SbeamOS system, kernel, GNOME desktop, Google Chrome Stable
+and dedicated Dracut Live initramfs. `build-iso.sh` creates a SquashFS root
+image and invokes GRUB to produce a hybrid BIOS/UEFI ISO.
+
+The Chrome build module downloads Google's official amd64 DEB package during
+the chroot stage. It configures Chrome as the default browser and uses the
+Google APT repository for subsequent stable-channel updates. Chrome is
+proprietary software; it is not part of the Ubuntu archive.
 
 The ISO builder requires host packages:
 
