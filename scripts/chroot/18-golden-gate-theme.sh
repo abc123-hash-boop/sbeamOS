@@ -49,7 +49,7 @@ clone_pinned \
   839848b9a8a38a92a6936e30c4abe35cc6f2546d "$ICON_REPO"
 
 log "Building the SbeamOS light-blue GTK and GNOME Shell theme..."
-"$GTK_REPO/install.sh" \
+SUDO_USER=root USER=root LOGNAME=root "$GTK_REPO/install.sh" \
   --silent-mode \
   --dest /usr/share/themes \
   --name SbeamOS \
@@ -59,9 +59,7 @@ log "Building the SbeamOS light-blue GTK and GNOME Shell theme..."
   --alt normal \
   --blur \
   --round \
-  --shell \
-  -icon apple \
-  -panelopacity 30
+  --shell -panelopacity 30
 
 log "Generating the matching libadwaita GTK 4 theme for new Live users..."
 # MacTahoe's libadwaita helper intentionally refuses to run as root. Build its
@@ -86,7 +84,7 @@ ln -sfn gtk-Light.css /etc/skel/.config/gtk-4.0/gtk.css
 ln -sfn gtk-Dark.css /etc/skel/.config/gtk-4.0/gtk-dark.css
 chown -R root:root /etc/skel/.config/gtk-4.0
 userdel --remove sbeamos-theme-build
-groupdel sbeamos-theme-build
+groupdel sbeamos-theme-build 2>/dev/null || true
 
 log "Installing the matching SbeamOS icon and cursor assets..."
 "$ICON_REPO/install.sh" \
