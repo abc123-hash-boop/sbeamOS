@@ -58,11 +58,17 @@ menu-icons='top-three'
 [org/gnome/shell/extensions/blur-my-shell/panel]
 blur=true
 static-blur=true
+pipeline='pipeline_liquid_glass'
 style-panel=4
 
 [org/gnome/shell/extensions/blur-my-shell/dash-to-dock]
 blur=true
 static-blur=true
+pipeline='pipeline_liquid_glass'
+
+[org/gnome/shell/extensions/blur-my-shell/popup]
+blur=true
+pipeline='pipeline_liquid_glass'
 
 [org/gnome/desktop/background]
 picture-uri='file:///usr/share/backgrounds/sbeamos/WP12-LM.png'

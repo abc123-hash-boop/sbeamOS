@@ -7,7 +7,7 @@ SbeamOS keeps GNOME Shell as its desktop environment and layers a macOS 27 Golde
 - **GTK and GNOME Shell theme:** MacTahoe GTK, built and installed as `SbeamOS-Light-blue` with the light-blue accent, left-side window controls, rounded maximized windows and translucent styling.
 - **Libadwaita:** matching GTK 4 CSS and assets are seeded into `/etc/skel/.config/gtk-4.0` for the Live user. The CSS links are made relative so they remain valid after the temporary theme-build home is removed.
 - **Icons:** MacTahoe icon theme, installed as `SbeamOS-blue`.
-- **Liquid Glass effects:** Blur my Shell, enabled for the top panel and Dock.
+- **Liquid Glass effects:** Blur my Shell, with its actual `pipeline_liquid_glass` shader enabled for the top panel, Dock and popups.
 - **Top-bar menu:** Kiwi Menu, using its Apple icon and macOS-style menu layout.
 - **Desktop layout:** Ubuntu Dock remains at the bottom; DING provides desktop icons. Window controls are placed on the left.
 
