@@ -20,6 +20,9 @@ apt-get install --yes --no-install-recommends \
   ibus \
   ibus-libpinyin \
   gnome-shell-ubuntu-extensions \
+  gnome-shell-extension-manager \
+  gnome-shell-extension-user-theme \
+  gnome-tweaks \
   nautilus \
   gvfs \
   gvfs-backends \

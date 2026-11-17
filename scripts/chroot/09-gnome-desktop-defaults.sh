@@ -5,11 +5,11 @@ log() {
   printf '[INFO] %s\n' "$*"
 }
 
-log "Applying conservative GNOME defaults for the Live desktop..."
+log "Applying the SbeamOS Golden Gate GNOME desktop defaults..."
 
-# Keep the first-boot desktop familiar while limiting extensions to the two
-# needed for the desktop experience: a permanently visible bottom Dock and
-# desktop icons. AppIndicator remains disabled until separately needed.
+# Configure the macOS-inspired desktop using native GNOME settings and
+# extensions. Ubuntu Dock and DING remain responsible for the bottom Dock
+# and desktop icons; Kiwi Menu and Blur my Shell provide the Golden Gate look.
 install -d -m 0755 /etc/dconf/profile /etc/dconf/db/local.d
 
 cat > /etc/dconf/profile/user <<'EOF'
@@ -19,7 +19,7 @@ EOF
 
 cat > /etc/dconf/db/local.d/00-sbeamos-desktop <<'EOF'
 [org/gnome/shell]
-enabled-extensions=['ubuntu-dock@ubuntu.com', 'ding@rastersoft.com']
+enabled-extensions=['ubuntu-dock@ubuntu.com', 'ding@rastersoft.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'kiwimenu@kemma']
 
 [org/gnome/shell/extensions/dash-to-dock]
 dock-position='BOTTOM'
@@ -40,7 +40,29 @@ sources=[('xkb', 'us')]
 current=0
 
 [org/gnome/desktop/wm/preferences]
-button-layout=':minimize,maximize,close'
+button-layout='close,minimize,maximize:'
+
+[org/gnome/desktop/interface]
+gtk-theme='SbeamOS-Light-blue'
+icon-theme='SbeamOS-blue'
+color-scheme='prefer-light'
+
+[org/gnome/shell/extensions/user-theme]
+name='SbeamOS-Light-blue'
+
+[org/gnome/shell/extensions/kiwimenu]
+icon=10
+activity-menu-visibility=false
+menu-icons='top-three'
+
+[org/gnome/shell/extensions/blur-my-shell/panel]
+blur=true
+static-blur=true
+style-panel=4
+
+[org/gnome/shell/extensions/blur-my-shell/dash-to-dock]
+blur=true
+static-blur=true
 
 [org/gnome/desktop/background]
 picture-uri='file:///usr/share/backgrounds/sbeamos/WP12-LM.png'
@@ -54,4 +76,4 @@ EOF
 log "Compiling the system dconf database..."
 dconf update
 
-log "GNOME Dock and desktop icons enabled; US keyboard only."
+log "Golden Gate appearance, Liquid Glass effects, macOS menu, Dock and desktop icons enabled; US keyboard only."

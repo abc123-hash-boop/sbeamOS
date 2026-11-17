@@ -7,6 +7,12 @@ The current build targets amd64 PCs and uses GNOME, systemd, Dracut, SquashFS,
 OverlayFS and GRUB for its planned Live environment. Casper is not part of the
 Live boot design.
 
+## Desktop appearance
+
+SbeamOS uses a macOS 27 Golden Gate-inspired GNOME desktop: the MacTahoe light-blue GTK and icon themes, left-side window controls, a bottom Dock, the Kiwi macOS-style menu, and Blur my Shell for translucent Liquid Glass-inspired panels and menus. The theme and GNOME extensions are pinned to specific upstream commits; their license notices and source revisions are installed under `/usr/share/doc/sbeamos-theme-licenses/` in the image.
+
+The visual style is implemented with GNOME Shell extensions and GTK themes; it does not replace GNOME with KDE or use proprietary macOS system files. See [docs/THEMING.md](docs/THEMING.md) for components, pinned source revisions and license details.
+
 ## Build stages
 
 Run the scripts from the repository root; they resolve their own paths, so the
