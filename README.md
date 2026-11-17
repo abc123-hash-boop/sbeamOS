@@ -9,7 +9,7 @@ Live boot design.
 
 ## Desktop appearance
 
-SbeamOS uses a macOS 27 Golden Gate-inspired GNOME desktop: the MacTahoe light-blue GTK and icon themes, left-side window controls, a bottom Dock, the Kiwi macOS-style menu, and Blur my Shell for translucent Liquid Glass-inspired panels and menus. The theme and GNOME extensions are pinned to specific upstream commits; their license notices and source revisions are installed under `/usr/share/doc/sbeamos-theme-licenses/` in the image.
+SbeamOS uses its own Aurora visual system: a crisp light surface palette, deep slate typography, a blue accent, custom GTK 3 and GTK 4/libadwaita styling, a matching GNOME Shell theme, and original SbeamOS folder and app icons. GNOME Tweaks and Extension Manager remain available for user customization. Blur my Shell and Kiwi Menu are optional desktop extensions that provide translucent surfaces and an alternate top-bar menu; they are not the source of the SbeamOS theme.
 
 The visual style is implemented with GNOME Shell extensions and GTK themes; it does not replace GNOME with KDE or use proprietary macOS system files. See [docs/THEMING.md](docs/THEMING.md) for components, pinned source revisions and license details.
 

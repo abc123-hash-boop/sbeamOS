@@ -5,11 +5,11 @@ log() {
   printf '[INFO] %s\n' "$*"
 }
 
-log "Applying the SbeamOS Golden Gate GNOME desktop defaults..."
+log "Applying the SbeamOS Aurora GNOME desktop defaults..."
 
-# Configure the macOS-inspired desktop using native GNOME settings and
+# Configure the SbeamOS desktop using native GNOME settings and
 # extensions. Ubuntu Dock and DING remain responsible for the bottom Dock
-# and desktop icons; Kiwi Menu and Blur my Shell provide the Golden Gate look.
+# and desktop icons; Kiwi Menu and Blur my Shell provide the Aurora look.
 install -d -m 0755 /etc/dconf/profile /etc/dconf/db/local.d
 
 cat > /etc/dconf/profile/user <<'EOF'
@@ -43,12 +43,12 @@ current=0
 button-layout='close,minimize,maximize:'
 
 [org/gnome/desktop/interface]
-gtk-theme='SbeamOS-Light-blue'
-icon-theme='SbeamOS-blue'
+gtk-theme='SbeamOS'
+icon-theme='SbeamOS'
 color-scheme='prefer-light'
 
 [org/gnome/shell/extensions/user-theme]
-name='SbeamOS-Light-blue'
+name='SbeamOS'
 
 [org/gnome/shell/extensions/kiwimenu]
 icon=10
@@ -82,4 +82,4 @@ EOF
 log "Compiling the system dconf database..."
 dconf update
 
-log "Golden Gate appearance, Liquid Glass effects, macOS menu, Dock and desktop icons enabled; US keyboard only."
+log "Aurora appearance, Liquid Glass effects, macOS menu, Dock and desktop icons enabled; US keyboard only."
