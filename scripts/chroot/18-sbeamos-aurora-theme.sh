@@ -9,6 +9,7 @@ BLUR_REPO="$WORK_DIR/blur-my-shell"
 KIWI_REPO="$WORK_DIR/kiwi-menu"
 THEME_DIR=/usr/share/themes/SbeamOS
 ICON_DIR=/usr/share/icons/SbeamOS
+LICENSE_DIR=/usr/share/doc/sbeamos-theme-licenses
 
 clone_pinned() {
   local url="$1" commit="$2" target="$3"
@@ -21,10 +22,15 @@ clone_pinned() {
 }
 
 log "Installing SbeamOS native theme build dependencies..."
-apt-get install --yes --no-install-recommends git make unzip
+apt-get install --yes --no-install-recommends git make unzip gettext libxml2-utils
 install -d -m 0755 "$THEME_DIR/gtk-3.0" "$THEME_DIR/gnome-shell" \
   "$ICON_DIR/scalable/places" "$ICON_DIR/scalable/apps" "$ICON_DIR/scalable/status" \
   /etc/skel/.config/gtk-4.0 "$WORK_DIR"
+
+log "Removing obsolete third-party SbeamOS-branded theme assets..."
+rm -rf /usr/share/themes/SbeamOS-Light-blue /usr/share/themes/SbeamOS-Light-blue-hdpi /usr/share/themes/SbeamOS-Light-blue-xhdpi
+rm -rf /usr/share/icons/SbeamOS-blue /usr/share/icons/SbeamOS-blue-dark /usr/share/icons/SbeamOS-blue-light
+rm -rf "$LICENSE_DIR"
 
 log "Creating original SbeamOS GTK theme..."
 cat > "$THEME_DIR/index.theme" <<'THEME'
@@ -178,7 +184,6 @@ cp -a "$KIWI_REPO"/. "$KIWI_EXTENSION_DIR"/
 rm -rf "$KIWI_EXTENSION_DIR/.git"
 
 log "Installing extension license notices and SbeamOS theme documentation..."
-LICENSE_DIR=/usr/share/doc/sbeamos-theme-licenses
 install -d -m 0755 "$LICENSE_DIR"
 install -m 0644 "$BLUR_REPO/LICENSE" "$LICENSE_DIR/Blur-my-Shell-GPL-3.0.txt"
 install -m 0644 "$KIWI_REPO/LICENSE" "$LICENSE_DIR/Kiwi-Menu-GPL-3.0.txt"
@@ -199,5 +204,8 @@ SOURCES
 glib-compile-schemas "$BLUR_EXTENSION_DIR/schemas"
 glib-compile-schemas "$KIWI_EXTENSION_DIR/schemas"
 rm -rf "$WORK_DIR"
+
+log "Removing temporary theme build tools..."
+apt-get purge --yes make gettext libxml2-utils
 
 log "SbeamOS Aurora theme and icons installed."
