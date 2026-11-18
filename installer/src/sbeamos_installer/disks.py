@@ -80,6 +80,4 @@ def validate_target(path: str) -> Disk:
         raise ValueError("The selected disk is read-only.")
     if disk.mountpoints:
         raise ValueError("The selected disk has mounted filesystems: " + ", ".join(disk.mountpoints))
-    if not os.path.exists("/run/sbeamos-live/rootfs.squashfs"):
-        raise ValueError("The SbeamOS Live installation image is not available.")
     return disk

@@ -5,7 +5,6 @@ log() {
   printf '[INFO] %s\n' "$*"
 }
 
-log "Applying the SbeamOS Aurora GNOME desktop defaults..."
 
 # Configure the SbeamOS desktop using native GNOME settings and
 # extensions. Ubuntu Dock and DING remain responsible for the bottom Dock
@@ -19,7 +18,7 @@ EOF
 
 cat > /etc/dconf/db/local.d/00-sbeamos-desktop <<'EOF'
 [org/gnome/shell]
-enabled-extensions=['ubuntu-dock@ubuntu.com', 'ding@rastersoft.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'blur-my-shell@aunetx', 'kiwimenu@kemma']
+enabled-extensions=['ubuntu-dock@ubuntu.com', 'ding@rastersoft.com']
 
 [org/gnome/shell/extensions/dash-to-dock]
 dock-position='BOTTOM'
@@ -43,32 +42,9 @@ current=0
 button-layout='close,minimize,maximize:'
 
 [org/gnome/desktop/interface]
-gtk-theme='SbeamOS'
-icon-theme='SbeamOS'
+gtk-theme='Yaru'
+icon-theme='Yaru'
 color-scheme='prefer-light'
-
-[org/gnome/shell/extensions/user-theme]
-name='SbeamOS'
-
-[org/gnome/shell/extensions/kiwimenu]
-icon=10
-activity-menu-visibility=false
-menu-icons='top-three'
-
-[org/gnome/shell/extensions/blur-my-shell/panel]
-blur=true
-static-blur=true
-pipeline='pipeline_liquid_glass'
-style-panel=4
-
-[org/gnome/shell/extensions/blur-my-shell/dash-to-dock]
-blur=true
-static-blur=true
-pipeline='pipeline_liquid_glass'
-
-[org/gnome/shell/extensions/blur-my-shell/popup]
-blur=true
-pipeline='pipeline_liquid_glass'
 
 [org/gnome/desktop/background]
 picture-uri='file:///usr/share/backgrounds/sbeamos/WP12-LM.png'

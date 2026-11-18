@@ -11,7 +11,11 @@ from pathlib import Path
 
 from .disks import validate_target
 
-LIVE_IMAGE = Path("/run/sbeamos-live/rootfs.squashfs")
+LIVE_IMAGE_CANDIDATES = (
+    Path("/run/sbeamos-live/rootfs.squashfs"),
+    Path("/cdrom/LiveOS/rootfs.squashfs"),
+    Path("/run/initramfs/live/LiveOS/rootfs.squashfs"),
+)
 LOCK_FILE = "/run/lock/sbeamos-installer.lock"
 
 
@@ -44,11 +48,10 @@ def install_system(disk_path: str, expected_identity: tuple[int, str, str],
         raise ValueError("Hostname contains unsupported characters.")
     if len(password) < 8:
         raise ValueError("Choose a password with at least 8 characters.")
-    media_image = Path("/cdrom/LiveOS/rootfs.squashfs")
-    if not LIVE_IMAGE.is_file() or not media_image.is_file():
-        raise RuntimeError("Live system image not found. Boot from the SbeamOS Live ISO.")
-    if not os.path.samefile(LIVE_IMAGE, media_image):
-        raise RuntimeError("The installer image does not match the mounted SbeamOS Live media.")
+    live_image = next((path for path in LIVE_IMAGE_CANDIDATES if path.is_file()), None)
+    if live_image is None:
+        searched = ", ".join(str(path) for path in LIVE_IMAGE_CANDIDATES)
+        raise RuntimeError(f"Live system image not found. Searched: {searched}")
 
     os.makedirs(os.path.dirname(LOCK_FILE), exist_ok=True)
     with open(LOCK_FILE, "w", encoding="utf-8") as lock:
@@ -65,7 +68,7 @@ def install_system(disk_path: str, expected_identity: tuple[int, str, str],
                 "No changes were made; rescan the disks and try again."
             )
         # Verify the source is a SquashFS image before any destructive operation.
-        with LIVE_IMAGE.open("rb") as image:
+        with live_image.open("rb") as image:
             if image.read(4) != b"hsqs":
                 raise RuntimeError("The Live installation source is not a valid SquashFS image.")
 
@@ -99,7 +102,7 @@ def install_system(disk_path: str, expected_identity: tuple[int, str, str],
 
             source.mkdir()
             target.mkdir()
-            _run(["mount", "-o", "loop,ro", str(LIVE_IMAGE), str(source)], log)
+            _run(["mount", "-o", "loop,ro", str(live_image), str(source)], log)
             mounted.append(source)
             _run(["mount", root_part, str(target)], log)
             mounted.append(target)
