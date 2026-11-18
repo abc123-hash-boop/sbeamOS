@@ -4,8 +4,9 @@ SbeamOS alpha-3 is an Ubuntu 26.04 (Resolute)-based Linux desktop distribution p
 The SbeamOS release identifier is maintained in the root `VERSION` file; the
 current release candidate is alpha-3.
 The current build targets amd64 PCs and uses GNOME, systemd, Dracut, SquashFS,
-OverlayFS and GRUB for its planned Live environment. Casper is not part of the
-Live boot design.
+OverlayFS and GRUB for its Live environment. Casper is not part of the Live
+boot design. A first GTK 3 graphical installer prototype is included and is
+installed into the Live image by the chroot build stage.
 
 ## Desktop appearance
 
@@ -60,9 +61,16 @@ See [`scripts/iso/BUILD.md`](scripts/iso/BUILD.md) for details.
 
 ## Current status
 
-This repository contains the build scripts and Live boot configuration. The
-full RootFS installation, ISO generation and UEFI/BIOS boot tests are still
-required before this can be considered a boot-verified release.
+This repository contains the build scripts, Live boot configuration and an
+early GTK 3 system installer. The installer currently supports fresh installs
+to a whole disk using GPT, an EFI System Partition and ext4 root. It does not
+support dual boot, manual partitioning, encryption, RAID, LVM or Btrfs.
+
+The installer and full RootFS/ISO flow have not yet been validated end-to-end
+on physical hardware or under both BIOS and UEFI QEMU firmware. Treat the
+installer as experimental and use disposable virtual disks for installation
+tests. A successful Python test run does not establish that disk installation
+or booting works.
 
 ## Wallpaper assets
 

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Install SbeamOS
+Comment=Install SbeamOS on this computer
+Exec=pkexec /usr/bin/sbeamos-installer
+Icon=drive-harddisk
+Terminal=false
+Categories=System;Settings;
+StartupNotify=true

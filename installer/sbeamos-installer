@@ -1,0 +1,7 @@
+#!/usr/bin/python3
+import sys
+
+sys.path.insert(0, "/usr/lib/sbeamos-installer/src")
+from sbeamos_installer.main import main
+
+raise SystemExit(main())

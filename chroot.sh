@@ -93,6 +93,8 @@ log "Copying chroot configuration scripts..."
 sudo mkdir -p "$ROOTFS$CHROOT_WORKDIR"
 sudo cp -a "$CHROOT_SCRIPTS/." "$ROOTFS$CHROOT_WORKDIR/"
 sudo install -m 0644 ./VERSION "$ROOTFS$CHROOT_WORKDIR/VERSION"
+sudo install -d -m 0755 "$ROOTFS$CHROOT_WORKDIR/installer"
+sudo cp -a ./installer/. "$ROOTFS$CHROOT_WORKDIR/installer/"
 
 log "Entering Ubuntu RootFS..."
 sudo chroot "$ROOTFS" /usr/bin/env DEBIAN_FRONTEND=noninteractive \

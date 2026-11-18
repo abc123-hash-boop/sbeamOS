@@ -15,3 +15,7 @@
 
 # Third-party WIP12 wallpaper binaries (redistribution permission unverified)
 /scripts/chroot/wallpapers/*.png
+
+# Python build/runtime artifacts
+__pycache__/
+*.py[cod]
