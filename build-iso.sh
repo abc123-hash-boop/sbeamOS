@@ -53,7 +53,7 @@ install -m 0644 "$ROOTFS/boot/sbeamos-live-initrd.img" "$ISO_ROOT/boot/sbeamos-l
 log "Creating compressed SquashFS root filesystem..."
 # Keep mount-point directories but exclude their transient contents.
 mksquashfs "$ROOTFS" "$ISO_ROOT/LiveOS/rootfs.squashfs" \
-  -noappend -comp zstd -b 1M -wildcards \
+  -noappend -comp zstd -Xcompression-level 22 -b 1M -wildcards \
   -e 'dev/*' 'proc/*' 'sys/*' 'run/*' 'tmp/*'
 
 [[ -s "$ISO_ROOT/LiveOS/rootfs.squashfs" ]] || die "SquashFS image was not created."
