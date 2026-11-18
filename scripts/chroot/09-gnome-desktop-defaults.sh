@@ -6,9 +6,8 @@ log() {
 }
 
 
-# Configure the SbeamOS desktop using native GNOME settings and
-# extensions. Ubuntu Dock and DING remain responsible for the bottom Dock
-# and desktop icons; Kiwi Menu and Blur my Shell provide the Aurora look.
+# Configure the desktop with Ubuntu's stock Yaru appearance.
+# Keep only Ubuntu Dock and DING; remove assets left by older SbeamOS themes.
 install -d -m 0755 /etc/dconf/profile /etc/dconf/db/local.d
 
 cat > /etc/dconf/profile/user <<'EOF'
@@ -55,7 +54,21 @@ primary-color='#101827'
 secondary-color='#101827'
 EOF
 
+log "Removing obsolete SbeamOS theme assets and extensions..."
+rm -rf /usr/share/themes/SbeamOS /usr/share/icons/SbeamOS \
+  /usr/share/themes/SbeamOS-Light-blue /usr/share/themes/SbeamOS-Light-blue-hdpi \
+  /usr/share/themes/SbeamOS-Light-blue-xhdpi \
+  /usr/share/icons/SbeamOS-blue /usr/share/icons/SbeamOS-blue-dark \
+  /usr/share/icons/SbeamOS-blue-light \
+  /usr/share/gnome-shell/extensions/kiwimenu@kemma \
+  /usr/share/gnome-shell/extensions/blur-my-shell@aunetx \
+  /usr/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com \
+  /etc/skel/.config/gtk-4.0/gtk.css
+if dpkg-query -W -f='${Status}' gnome-shell-extension-user-theme 2>/dev/null | grep -q 'install ok installed'; then
+  apt-get purge --yes gnome-shell-extension-user-theme
+fi
+
 log "Compiling the system dconf database..."
 dconf update
 
-log "Aurora appearance, Liquid Glass effects, macOS menu, Dock and desktop icons enabled; US keyboard only."
+log "Default Yaru theme, Ubuntu Dock, DING and US keyboard configured."
