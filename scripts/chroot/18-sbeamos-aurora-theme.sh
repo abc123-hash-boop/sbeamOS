@@ -22,7 +22,7 @@ clone_pinned() {
 }
 
 log "Installing SbeamOS native theme build dependencies..."
-apt-get install --yes --no-install-recommends git make unzip gettext libxml2-utils
+apt-get install --yes --no-install-recommends git make unzip gettext libxml2-utils libglib2.0-bin libglib2.0-dev-bin
 install -d -m 0755 "$THEME_DIR/gtk-3.0" "$THEME_DIR/gnome-shell" \
   "$ICON_DIR/scalable/places" "$ICON_DIR/scalable/apps" "$ICON_DIR/scalable/status" \
   /etc/skel/.config/gtk-4.0 "$WORK_DIR"
